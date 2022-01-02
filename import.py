@@ -13,20 +13,21 @@ from modules.imports.cmb_credit import CMBCredit
 from modules.imports.cmbc_credit import CMBCCredit
 from modules.imports.icbc_credit import ICBCCredit
 from modules.imports.icbc_debit import ICBCDebit
+from modules.imports.psdb_credit import PSDBCredit
 from modules.imports.wechat import WeChat
 from modules.imports.yuebao import YuEBao
 from modules.imports.alipay_prove import AlipayProve
 
 parser = argparse.ArgumentParser("import")
+# parser.add_argument("--path", help="CSV Path", default='psdb_1.xls')
 parser.add_argument("path", help="CSV Path")
 parser.add_argument(
-    "--entry", help="Entry bean path (default = main.bean)", default='main.bean')
+    "--entry", help="Entry bean path (default = main.bean)", default='../main.beancount')
 parser.add_argument("--out", help="Output bean path", default='out.bean')
 args = parser.parse_args()
 
 entries, errors, option_map = loader.load_file(args.entry)
-
-importers = [Alipay, AlipayProve, WeChat, CITICCredit, CMBCCredit,
+importers = [Alipay, AlipayProve, WeChat, PSDBCredit, CITICCredit, CMBCCredit,
              CMBCredit, YuEBao, ICBCCredit, ICBCDebit]#, CCBDebit]
 instance = None
 for importer in importers:
